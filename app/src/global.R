@@ -1,5 +1,6 @@
 library(shiny)
 library(shiny.semantic)
+library(dplyr)
 library(echarts4r)
 
 data <- readRDS("data/deaths.RDS")
