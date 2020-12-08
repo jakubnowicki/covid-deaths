@@ -19,6 +19,7 @@ semanticPage(
     ),
     general_controls = div(
       class = "ui raised segment",
+      h3("Deaths in time controls"),
       shiny.semantic::selectInput(
         inputId = "grouping",
         label = "Group",
@@ -32,6 +33,7 @@ semanticPage(
     ),
     year_comparison_controls = div(
       class = "ui raised segment",
+      h3("Comparison controls"),
       shiny.semantic::selectInput(
         inputId = "years",
         label = "Years to compare",
@@ -42,6 +44,7 @@ semanticPage(
     ),
     controls = div(
       class = "ui raised segment",
+      h3("Filters"),
       shiny.semantic::selectInput(
         inputId = "area",
         label = "Area",
