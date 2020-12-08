@@ -42,7 +42,7 @@ get_data <- function(path, year) {
     ) %>%
     mutate(
       year = year,
-      week_year = paste(week, year, sep = "-")
+      year_week = paste(year, week, sep = "-")
     )
 }
 
@@ -58,3 +58,5 @@ for (file in data_files) {
   tmp_df <- get_data(path, year)
   deaths <- rbind(deaths, tmp_df)
 }
+
+saveRDS(deaths, file = "./app/src/data/deaths.RDS")
