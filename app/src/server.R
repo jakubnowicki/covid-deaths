@@ -43,7 +43,8 @@ function(input, output, session) {
       ) %>%
       e_tooltip() %>%
       e_datazoom(type = "slider") %>%
-      e_title("Deaths in time", left = "10%")
+      e_title("Deaths in time", left = "10%") %>%
+      e_show_loading()
   })
 
   output$year_comparison_chart <- echarts4r::renderEcharts4r({
@@ -81,6 +82,7 @@ function(input, output, session) {
       ) %>%
       e_tooltip() %>%
       e_datazoom(type = "slider") %>%
-      e_title("Comparison by year", left = "10%")
+      e_title("Comparison by year", left = "10%") %>%
+      e_show_loading()
   })
 }
