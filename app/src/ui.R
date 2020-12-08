@@ -1,4 +1,6 @@
 semanticPage(
+  margin = "0",
+  includeCSS("www/styles.css"),
   shiny.semantic::grid(
     grid_template = grid_template(
       default = list(
@@ -11,8 +13,12 @@ semanticPage(
         rows_height = c("1fr", "1fr")
       )
     ),
-    general_chart = echarts4r::echarts4rOutput("general_chart", height = "100%"),
+    general_chart = div(
+      class = "ui raised segment",
+      echarts4r::echarts4rOutput("general_chart", height = "100%")
+    ),
     general_controls = div(
+      class = "ui raised segment",
       shiny.semantic::selectInput(
         inputId = "grouping",
         label = "Group",
@@ -20,8 +26,12 @@ semanticPage(
         multiple = FALSE
       )
     ),
-    year_comparison_chart = echarts4r::echarts4rOutput("year_comparison_chart", height = "100%"),
+    year_comparison_chart = div(
+      class = "ui raised segment",
+      echarts4r::echarts4rOutput("year_comparison_chart", height = "100%")
+    ),
     year_comparison_controls = div(
+      class = "ui raised segment",
       shiny.semantic::selectInput(
         inputId = "years",
         label = "Years to compare",
@@ -31,6 +41,7 @@ semanticPage(
       )
     ),
     controls = div(
+      class = "ui raised segment",
       shiny.semantic::selectInput(
         inputId = "area",
         label = "Area",
