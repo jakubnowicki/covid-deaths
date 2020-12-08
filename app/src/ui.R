@@ -1,4 +1,6 @@
 semanticPage(
+  margin = "0",
+  includeCSS("www/styles.css"),
   shiny.semantic::grid(
     grid_template = grid_template(
       default = list(
@@ -11,8 +13,13 @@ semanticPage(
         rows_height = c("1fr", "1fr")
       )
     ),
-    general_chart = echarts4r::echarts4rOutput("general_chart", height = "100%"),
+    general_chart = div(
+      class = "ui raised segment",
+      echarts4r::echarts4rOutput("general_chart", height = "100%")
+    ),
     general_controls = div(
+      class = "ui raised segment",
+      h3("Deaths in time controls"),
       shiny.semantic::selectInput(
         inputId = "grouping",
         label = "Group",
@@ -20,8 +27,13 @@ semanticPage(
         multiple = FALSE
       )
     ),
-    year_comparison_chart = echarts4r::echarts4rOutput("year_comparison_chart", height = "100%"),
+    year_comparison_chart = div(
+      class = "ui raised segment",
+      echarts4r::echarts4rOutput("year_comparison_chart", height = "100%")
+    ),
     year_comparison_controls = div(
+      class = "ui raised segment",
+      h3("Comparison controls"),
       shiny.semantic::selectInput(
         inputId = "years",
         label = "Years to compare",
@@ -31,6 +43,8 @@ semanticPage(
       )
     ),
     controls = div(
+      class = "ui raised segment",
+      h3("Filters"),
       shiny.semantic::selectInput(
         inputId = "area",
         label = "Area",
@@ -46,5 +60,14 @@ semanticPage(
         multiple = TRUE
       )
     )
+  ),
+  shiny.info::display(
+    span(
+      "Created by Jakub Nowicki",
+      tags$a(href = "https://twitter.com/q_nowicki", icon("twitter")),
+      tags$a(href = "https://www.linkedin.com/in/jakub-nowicki/", icon("linkedin")),
+      tags$a(href = "https://github.com/jakubnowicki", icon("github"))
+    ),
+    position = "bottom right"
   )
 )
