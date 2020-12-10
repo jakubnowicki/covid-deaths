@@ -11,11 +11,24 @@ semanticPage(
         ),
         cols_width = c("1fr", "6fr", "1fr"),
         rows_height = c("1fr", "1fr")
+      ),
+      mobile = list(
+        areas = rbind(
+          c("controls"),
+          c("general_controls"),
+          c("general_chart"),
+          c("year_comparison_controls"),
+          c("year_comparison_chart")
+        ),
+        rows_height = c("1fr", "1fr", "5fr", "1fr", "5fr"),
+        cols_width = c("100%")
       )
     ),
     general_chart = div(
       class = "ui raised segment",
-      echarts4r::echarts4rOutput("general_chart", height = "100%")
+      style = "min-height: 350px;",
+      h3("Deaths in time"),
+      echarts4r::echarts4rOutput("general_chart", height = "calc(100% - 37px)")
     ),
     general_controls = div(
       class = "ui raised segment",
@@ -29,7 +42,9 @@ semanticPage(
     ),
     year_comparison_chart = div(
       class = "ui raised segment",
-      echarts4r::echarts4rOutput("year_comparison_chart", height = "100%")
+      style = "min-height: 350px;",
+      h3("Comparison by year"),
+      echarts4r::echarts4rOutput("year_comparison_chart", height = "calc(100% - 37px)")
     ),
     year_comparison_controls = div(
       class = "ui raised segment",

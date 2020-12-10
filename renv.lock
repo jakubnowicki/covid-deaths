@@ -628,9 +628,14 @@
     "shiny.semantic": {
       "Package": "shiny.semantic",
       "Version": "0.4.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "4a35b215ad445e12500bf962548055f7"
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "shiny.semantic",
+      "RemoteUsername": "Appsilon",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "c637940e69d051e75a3a6973b6870fdc32e83fa5",
+      "Hash": "dd559e6f62c5918bf5ceea12027f12f3"
     },
     "sourcetools": {
       "Package": "sourcetools",

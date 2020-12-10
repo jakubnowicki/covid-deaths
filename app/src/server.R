@@ -43,7 +43,6 @@ function(input, output, session) {
       ) %>%
       e_tooltip() %>%
       e_datazoom(type = "slider") %>%
-      e_title("Deaths in time", left = "10%") %>%
       e_show_loading()
   })
 
@@ -82,7 +81,6 @@ function(input, output, session) {
       ) %>%
       e_tooltip() %>%
       e_datazoom(type = "slider") %>%
-      e_title("Comparison by year", left = "10%") %>%
       e_show_loading()
   })
 }
