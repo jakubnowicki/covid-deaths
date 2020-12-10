@@ -1,5 +1,5 @@
 function(input, output, session) {
-  session$userData$data <- data
+  session$userData$data <- deaths
 
   output$general_chart <- echarts4r::renderEcharts4r({
     selected_area <- input$area
@@ -34,6 +34,8 @@ function(input, output, session) {
       )
     }
 
+    formatter <- create_axis_formatter(data)
+
     data %>%
       e_chart(
         x = year_week
@@ -43,8 +45,8 @@ function(input, output, session) {
       ) %>%
       e_tooltip() %>%
       e_datazoom(type = "slider") %>%
-      e_title("Deaths in time", left = "10%") %>%
-      e_show_loading()
+      e_show_loading() %>%
+      e_y_axis(formatter = htmlwidgets::JS(formatter))
   })
 
   output$year_comparison_chart <- echarts4r::renderEcharts4r({
@@ -72,6 +74,8 @@ function(input, output, session) {
       summarise(deaths = sum(deaths)) %>%
       ungroup()
 
+    formatter <- create_axis_formatter(data)
+
     data %>%
       group_by(year, .add = TRUE) %>%
       e_chart(
@@ -82,7 +86,7 @@ function(input, output, session) {
       ) %>%
       e_tooltip() %>%
       e_datazoom(type = "slider") %>%
-      e_title("Comparison by year", left = "10%") %>%
-      e_show_loading()
+      e_show_loading() %>%
+      e_y_axis(formatter = htmlwidgets::JS(formatter))
   })
 }
