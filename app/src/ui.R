@@ -35,7 +35,7 @@ semanticPage(
       shiny.semantic::selectInput(
         inputId = "grouping",
         label = "Group",
-        choices = c("none", "age", "area"),
+        choices = c("none"),
         multiple = FALSE
       )
     ),

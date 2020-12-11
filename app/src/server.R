@@ -1,6 +1,27 @@
 function(input, output, session) {
   session$userData$data <- deaths
 
+  observeEvent(c(input$age, input$area), {
+    age <- NULL
+    if (!is.null(input$age)) {
+      age <- "age"
+    }
+
+    area <- NULL
+    if (!is.null(input$area)) {
+      area <- "area"
+    }
+
+    old_value <- input$grouping
+
+    update_dropdown_input(
+      session,
+      input_id = "grouping",
+      choices = c("none", age, area),
+      value = old_value
+    )
+  }, ignoreNULL = FALSE, ignoreInit = TRUE)
+
   output$general_chart <- echarts4r::renderEcharts4r({
     selected_area <- input$area
     if (is.null(selected_area)) {
