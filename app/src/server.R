@@ -1,7 +1,15 @@
 function(input, output, session) {
   session$userData$data <- deaths
 
-  observeEvent(c(input$age, input$area), {
+  age_reactive <- reactive({
+    input$age
+  }) %>% debounce(2000)
+
+  area_reactive <- reactive({
+    input$area
+  }) %>% debounce(2000)
+
+  observeEvent(c(age_reactive(), area_reactive()), {
     age <- NULL
     if (!is.null(input$age)) {
       age <- "age"
@@ -23,12 +31,12 @@ function(input, output, session) {
   }, ignoreNULL = FALSE, ignoreInit = TRUE)
 
   output$general_chart <- echarts4r::renderEcharts4r({
-    selected_area <- input$area
+    selected_area <- area_reactive()
     if (is.null(selected_area)) {
       selected_area <- "Polska"
     }
 
-    selected_age <- input$age
+    selected_age <- age_reactive()
     if (is.null(selected_age)) {
       selected_age <- "Ogółem"
     }
@@ -71,12 +79,12 @@ function(input, output, session) {
   })
 
   output$year_comparison_chart <- echarts4r::renderEcharts4r({
-    selected_area <- input$area
+    selected_area <- area_reactive()
     if (is.null(selected_area)) {
       selected_area <- "Polska"
     }
 
-    selected_age <- input$age
+    selected_age <- age_reactive()
     if (is.null(selected_age)) {
       selected_age <- "Ogółem"
     }
