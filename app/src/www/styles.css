@@ -1,4 +1,13 @@
+@media screen and (min-width: 600px) {
+  .ui.raised.segment {
+    height: calc(100% - 20px);
+  }
+
+  .field {
+    margin: 0 5px !important;
+  }
+}
+
 .ui.raised.segment {
-  height: calc(100% - 20px);
   margin: 10px;
 }

@@ -5,12 +5,11 @@ semanticPage(
     grid_template = grid_template(
       default = list(
         areas = cbind(
-          c("controls", "controls"),
-          c("general_chart", "year_comparison_chart"),
-          c("general_controls", "year_comparison_controls")
+          c("controls", "general_chart", "year_comparison_chart"),
+          c("controls", "general_controls", "year_comparison_controls")
         ),
-        cols_width = c("1fr", "6fr", "1fr"),
-        rows_height = c("1fr", "1fr")
+        cols_width = c("7fr", "1fr"),
+        rows_height = c("1fr", "7fr", "7fr")
       ),
       mobile = list(
         areas = rbind(
@@ -28,7 +27,7 @@ semanticPage(
       class = "ui raised segment",
       style = "min-height: 350px;",
       h3("Deaths in time"),
-      echarts4r::echarts4rOutput("general_chart", height = "calc(100% - 37px)")
+      echarts4r::echarts4rOutput("general_chart", height = "330px")
     ),
     general_controls = div(
       class = "ui raised segment",
@@ -36,7 +35,7 @@ semanticPage(
       shiny.semantic::selectInput(
         inputId = "grouping",
         label = "Group",
-        choices = c("none", "age", "area"),
+        choices = c("none"),
         multiple = FALSE
       )
     ),
@@ -44,7 +43,7 @@ semanticPage(
       class = "ui raised segment",
       style = "min-height: 350px;",
       h3("Comparison by year"),
-      echarts4r::echarts4rOutput("year_comparison_chart", height = "calc(100% - 37px)")
+      echarts4r::echarts4rOutput("year_comparison_chart", height = "330px")
     ),
     year_comparison_controls = div(
       class = "ui raised segment",
@@ -60,19 +59,33 @@ semanticPage(
     controls = div(
       class = "ui raised segment",
       h3("Filters"),
-      shiny.semantic::selectInput(
-        inputId = "area",
-        label = "Area",
-        choices = areas,
-        selected = "Polska",
-        multiple = TRUE
-      ),
-      shiny.semantic::selectInput(
-        inputId = "age",
-        label = "Age",
-        choices = ages,
-        selected = "Ogółem",
-        multiple = TRUE
+      shiny.semantic::grid(
+        grid_template = grid_template(
+          default = list(
+            areas = cbind("areas", "years"),
+            cols_width = c("1fr", "1fr"),
+            rows_height = "100%"
+          ),
+          mobile = list(
+            areas = rbind("areas", "years"),
+            cols_width = "100%",
+            rows_height = c("1fr", "1fr")
+          )
+        ),
+        areas = shiny.semantic::selectInput(
+          inputId = "area",
+          label = "Area",
+          choices = areas[areas != "Polska"],
+          multiple = TRUE,
+          default_text = "Polska"
+        ),
+        years = shiny.semantic::selectInput(
+          inputId = "age",
+          label = "Age",
+          choices = ages[ages != "Ogółem"],
+          multiple = TRUE,
+          default_text = "Ogółem"
+        )
       )
     )
   ),
