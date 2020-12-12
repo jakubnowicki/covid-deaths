@@ -2,14 +2,6 @@ semanticPage(
   margin = "0",
   includeCSS("www/styles.css"),
   shiny.i18n::usei18n(i18n),
-  div(
-    selectInput(
-      inputId = 'selected_language',
-      label = i18n$t("Change language"),
-      choices = i18n$get_languages(),
-      selected = i18n$get_key_translation()
-    )
-  ),
   shiny.semantic::grid(
     grid_template = grid_template(
       default = list(
@@ -106,5 +98,14 @@ semanticPage(
       tags$a(href = "https://github.com/jakubnowicki", icon("github"))
     ),
     position = "bottom right"
+  ),
+  div(
+    class = "language-input",
+    selectInput(
+      inputId = 'selected_language',
+      label = NULL,
+      choices = i18n$get_languages(),
+      selected = i18n$get_key_translation()
+    )
   )
 )

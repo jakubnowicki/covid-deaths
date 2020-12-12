@@ -1,7 +1,6 @@
 {
   "languages": ["en", "pl"],
   "translation": [
-      {"en": "Change language", "pl": "Zmień język"},
       {"en": "Deaths in time", "pl": "Zgony w czasie"},
       {"en": "Deaths in time controls", "pl": "Zgony w czasie - narzędzia"},
       {"en": "Group", "pl": "Grupowanie"},

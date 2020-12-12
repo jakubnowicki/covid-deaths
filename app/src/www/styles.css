@@ -11,3 +11,10 @@
 .ui.raised.segment {
   margin: 10px;
 }
+
+.language-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px 6px;
+}
