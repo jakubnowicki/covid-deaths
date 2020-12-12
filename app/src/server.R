@@ -1,6 +1,10 @@
 function(input, output, session) {
   session$userData$data <- deaths
 
+  observeEvent(input$selected_language, {
+    shiny.i18n::update_lang(session, input$selected_language)
+  })
+
   age_reactive <- reactive({
     input$age
   }) %>% debounce(2000)
@@ -46,9 +50,9 @@ function(input, output, session) {
 
     if (input$grouping != "none") {
       data <- data %>%
-      group_by(
-        across(input$grouping)
-      )
+        group_by(
+          across(input$grouping)
+        )
     }
 
     data <- data %>%
@@ -56,11 +60,15 @@ function(input, output, session) {
       summarise(deaths = sum(deaths)) %>%
       ungroup()
 
+    show_legend <- FALSE
+
     if (input$grouping != "none") {
       data <- data %>%
-      group_by(
-        across(input$grouping)
-      )
+        group_by(
+          across(input$grouping)
+        )
+
+      show_legend <- TRUE
     }
 
     formatter <- create_axis_formatter(data)
@@ -75,7 +83,8 @@ function(input, output, session) {
       e_tooltip() %>%
       e_datazoom(type = "slider") %>%
       e_show_loading() %>%
-      e_y_axis(formatter = htmlwidgets::JS(formatter))
+      e_y_axis(formatter = htmlwidgets::JS(formatter)) %>%
+      e_legend(show_legend)
   })
 
   output$year_comparison_chart <- echarts4r::renderEcharts4r({

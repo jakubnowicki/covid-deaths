@@ -2,6 +2,11 @@ library(shiny)
 library(shiny.semantic)
 library(dplyr)
 library(echarts4r)
+library(shiny.i18n)
+
+# File with translations
+i18n <- Translator$new(translation_json_path = "data/translation.json")
+i18n$set_translation_language("en")
 
 deaths <- readRDS("data/deaths.RDS")
 areas <- unique(deaths$area)

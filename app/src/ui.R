@@ -1,6 +1,7 @@
 semanticPage(
   margin = "0",
   includeCSS("www/styles.css"),
+  shiny.i18n::usei18n(i18n),
   shiny.semantic::grid(
     grid_template = grid_template(
       default = list(
@@ -26,15 +27,15 @@ semanticPage(
     general_chart = div(
       class = "ui raised segment",
       style = "min-height: 350px;",
-      h3("Deaths in time"),
+      h3(i18n$t("Deaths in time")),
       echarts4r::echarts4rOutput("general_chart", height = "330px")
     ),
     general_controls = div(
       class = "ui raised segment",
-      h3("Deaths in time controls"),
+      h3(i18n$t("Deaths in time controls")),
       shiny.semantic::selectInput(
         inputId = "grouping",
-        label = "Group",
+        label = i18n$t("Group"),
         choices = c("none"),
         multiple = FALSE
       )
@@ -42,15 +43,15 @@ semanticPage(
     year_comparison_chart = div(
       class = "ui raised segment",
       style = "min-height: 350px;",
-      h3("Comparison by year"),
+      h3(i18n$t("Comparison by year")),
       echarts4r::echarts4rOutput("year_comparison_chart", height = "330px")
     ),
     year_comparison_controls = div(
       class = "ui raised segment",
-      h3("Comparison controls"),
+      h3(i18n$t("Comparison controls")),
       shiny.semantic::selectInput(
         inputId = "years",
-        label = "Years to compare",
+        label = i18n$t("Years to compare"),
         choices = years,
         multiple = TRUE,
         selected = tail(sort(years), 2)
@@ -58,7 +59,7 @@ semanticPage(
     ),
     controls = div(
       class = "ui raised segment",
-      h3("Filters"),
+      h3(i18n$t("Filters")),
       shiny.semantic::grid(
         grid_template = grid_template(
           default = list(
@@ -74,17 +75,17 @@ semanticPage(
         ),
         areas = shiny.semantic::selectInput(
           inputId = "area",
-          label = "Area",
+          label = i18n$t("Area"),
           choices = areas[areas != "Polska"],
           multiple = TRUE,
-          default_text = "Polska"
+          default_text = i18n$t("Poland")
         ),
         years = shiny.semantic::selectInput(
           inputId = "age",
-          label = "Age",
+          label = i18n$t("Age"),
           choices = ages[ages != "Ogółem"],
           multiple = TRUE,
-          default_text = "Ogółem"
+          default_text = i18n$t("All")
         )
       )
     )
@@ -97,5 +98,14 @@ semanticPage(
       tags$a(href = "https://github.com/jakubnowicki", icon("github"))
     ),
     position = "bottom right"
+  ),
+  div(
+    class = "language-input",
+    selectInput(
+      inputId = 'selected_language',
+      label = NULL,
+      choices = i18n$get_languages(),
+      selected = i18n$get_key_translation()
+    )
   )
 )

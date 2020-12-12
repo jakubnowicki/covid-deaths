@@ -1,0 +1,16 @@
+{
+  "languages": ["en", "pl"],
+  "translation": [
+      {"en": "Deaths in time", "pl": "Zgony w czasie"},
+      {"en": "Deaths in time controls", "pl": "Zgony w czasie - narzędzia"},
+      {"en": "Group", "pl": "Grupowanie"},
+      {"en": "Comparison by year", "pl": "Porównanie lat"},
+      {"en": "Comparison controls", "pl": "Porównanie lat - narzędzia"},
+      {"en": "Years to compare", "pl": "Lata do porównania"},
+      {"en": "Filters", "pl": "Filtrowanie"},
+      {"en": "Area", "pl": "Obszar"},
+      {"en": "Poland", "pl": "Polska"},
+      {"en": "Age", "pl": "Wiek"},
+      {"en": "All", "pl": "Ogółem"}
+    ]
+}
