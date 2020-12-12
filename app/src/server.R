@@ -1,6 +1,10 @@
 function(input, output, session) {
   session$userData$data <- deaths
 
+  observeEvent(input$selected_language, {
+    shiny.i18n::update_lang(session, input$selected_language)
+  })
+
   age_reactive <- reactive({
     input$age
   }) %>% debounce(2000)
