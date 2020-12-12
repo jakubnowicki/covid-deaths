@@ -16,5 +16,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  margin: 10px 6px;
+}
+
+.language-input .field {
+  margin: 0 !important;
 }
