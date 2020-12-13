@@ -19,8 +19,8 @@ get_area_level <- function(area_code) {
   case_when(
     level == 1 ~ "country",
     level == 2 ~ "macroregion",
-    level == 3 ~ "voivodship",
-    level == 4 ~ "district"
+    level == 3 ~ "region",
+    level == 4 ~ "subregion"
   )
 }
 
@@ -42,7 +42,10 @@ get_data <- function(path, year) {
     ) %>%
     mutate(
       year = year,
-      year_week = paste(year, week, sep = "-")
+      year_week = paste(year, week, sep = "-"),
+      macroregion = substr(area_code, 1, 3),
+      region = substr(area_code, 1, 4),
+      subregion = substr(area_code, 1, 5)
     )
 }
 

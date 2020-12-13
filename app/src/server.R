@@ -5,6 +5,36 @@ function(input, output, session) {
     shiny.i18n::update_lang(session, input$selected_language)
   })
 
+  output$region_input <- renderUI({
+    regions_df <- areas_df %>%
+      filter(macroregion %in% input$macroregion & area_level == "region")
+
+    regions <- setNames(regions_df$region, regions_df$area)
+
+    shiny.semantic::selectInput(
+          inputId = "region",
+          label = i18n$t("Region"),
+          choices = regions,
+          multiple = TRUE,
+          default_text = i18n$t("All")
+        )
+  })
+
+  output$subregion_input <- renderUI({
+    subregions_df <- areas_df %>%
+      filter(region %in% input$region & area_level == "subregion")
+
+    subregions <- setNames(subregions_df$subregion, subregions_df$area)
+
+    shiny.semantic::selectInput(
+          inputId = "subregion",
+          label = i18n$t("Subregion"),
+          choices = subregions,
+          multiple = TRUE,
+          default_text = i18n$t("All")
+        )
+  })
+
   age_reactive <- reactive({
     input$age
   }) %>% debounce(2000)
@@ -13,15 +43,25 @@ function(input, output, session) {
     input$area
   }) %>% debounce(2000)
 
-  observeEvent(c(age_reactive(), area_reactive()), {
+  observeEvent(c(age_reactive(), input$macroregion, input$region, input$subregion), {
     age <- NULL
     if (!is.null(input$age)) {
       age <- "age"
     }
 
-    area <- NULL
-    if (!is.null(input$area)) {
-      area <- "area"
+    macroregion <- NULL
+    if (!is.null(input$macroregion)) {
+      macroregion <- "macroregion"
+    }
+
+    region <- NULL
+    if (!is.null(input$region)) {
+      region <- "region"
+    }
+
+    subregion <- NULL
+    if (!is.null(input$subregion)) {
+      subregion <- "subregion"
     }
 
     old_value <- input$grouping
@@ -29,12 +69,12 @@ function(input, output, session) {
     update_dropdown_input(
       session,
       input_id = "grouping",
-      choices = c("none", age, area),
+      choices = c("none", age, macroregion, region, subregion),
       value = old_value
     )
   }, ignoreNULL = FALSE, ignoreInit = TRUE)
 
-  output$general_chart <- echarts4r::renderEcharts4r({
+  filtered_data <- reactive({
     selected_area <- area_reactive()
     if (is.null(selected_area)) {
       selected_area <- "Polska"
@@ -46,7 +86,28 @@ function(input, output, session) {
     }
 
     data <- session$userData$data %>%
-      filter(area %in% selected_area, age %in% selected_age)
+      filter(age %in% selected_age)
+
+    if (!is.null(input$macroregion)) {
+      data <- data %>%
+        filter(macroregion %in% input$macroregion)
+    }
+
+    if (!is.null(input$region)) {
+      data <- data %>%
+        filter(region %in% input$region)
+    }
+
+    if (!is.null(input$subregion)) {
+      data <- data %>%
+        filter(subregion %in% input$subregion)
+    }
+
+    data
+  })
+
+  output$general_chart <- echarts4r::renderEcharts4r({
+    data <- filtered_data()
 
     if (input$grouping != "none") {
       data <- data %>%
@@ -88,23 +149,15 @@ function(input, output, session) {
   })
 
   output$year_comparison_chart <- echarts4r::renderEcharts4r({
-    selected_area <- area_reactive()
-    if (is.null(selected_area)) {
-      selected_area <- "Polska"
-    }
-
-    selected_age <- age_reactive()
-    if (is.null(selected_age)) {
-      selected_age <- "Ogółem"
-    }
+    data <- filtered_data()
 
     selected_years <- input$years
     if (is.null(selected_years)) {
       selected_years <- years
     }
 
-    data <- session$userData$data %>%
-      filter(area %in% selected_area, age %in% selected_age, year %in% selected_years)
+    data <- data %>%
+      filter(year %in% selected_years)
 
 
     data <- data %>%

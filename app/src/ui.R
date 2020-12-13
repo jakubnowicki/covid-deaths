@@ -82,12 +82,16 @@ semanticPage(
             rows_height = c("1fr", "1fr")
           )
         ),
-        areas = shiny.semantic::selectInput(
-          inputId = "area",
-          label = i18n$t("Area"),
-          choices = areas[areas != "Polska"],
+        areas = div(
+        shiny.semantic::selectInput(
+          inputId = "macroregion",
+          label = i18n$t("Macroregion"),
+          choices = macroregions,
           multiple = TRUE,
-          default_text = i18n$t("Poland")
+          default_text = i18n$t("All")
+        ),
+        uiOutput("region_input"),
+        uiOutput("subregion_input")
         ),
         years = shiny.semantic::selectInput(
           inputId = "age",

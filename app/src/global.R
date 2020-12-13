@@ -10,8 +10,21 @@ i18n$set_translation_language("en")
 
 deaths <- readRDS("data/deaths.RDS")
 areas <- unique(deaths$area)
+macroregions <- unique(deaths$macroregion)
+macroregion_names <- deaths %>% filter(area_level == "macroregion") %>% pull(area) %>% unique
 ages <- unique(deaths$age)
 years <- unique(deaths$year)
+
+
+areas_df <- deaths %>%
+  select(area, area_code, area_level, macroregion, region, subregion) %>%
+  filter(area_level != "country") %>%
+  distinct()
+
+macroregions_df <- areas_df %>% filter(area_level == "macroregion")
+macroregions <- setNames(macroregions_df$macroregion, macroregions_df$area)
+
+deaths <- deaths %>% filter(area_level == "subregion")
 
 create_axis_formatter <- function(data) {
   deaths_level <- nchar(max(data$deaths, na.rm = TRUE))
