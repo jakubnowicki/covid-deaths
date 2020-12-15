@@ -43,42 +43,6 @@ function(input, output, session) {
     input$area
   }) %>% debounce(2000)
 
-  observeEvent(c(age_reactive(), input$macroregion, input$region, input$subregion), {
-    age <- NULL
-    if (!is.null(input$age)) {
-      age <- "age"
-    }
-
-    macroregion <- NULL
-    if (!is.null(input$macroregion)) {
-      macroregion <- "macroregion_name"
-    }
-
-    region <- NULL
-    if (!is.null(input$region)) {
-      region <- "region_name"
-    }
-
-    subregion <- NULL
-    if (!is.null(input$subregion)) {
-      subregion <- "subregion_name"
-    }
-
-    choices <- c("none", age, macroregion, region, subregion)
-    if (input$grouping %in% choices) {
-      old_value <- input$grouping
-    } else {
-      old_value <- "none"
-    }
-
-    update_dropdown_input(
-      session,
-      input_id = "grouping",
-      choices = choices,
-      value = old_value
-    )
-  }, ignoreNULL = FALSE, ignoreInit = TRUE)
-
   filtered_data <- reactive({
     selected_area <- area_reactive()
     if (is.null(selected_area)) {

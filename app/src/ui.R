@@ -36,7 +36,7 @@ semanticPage(
       shiny.semantic::selectInput(
         inputId = "grouping",
         label = i18n$t("Group"),
-        choices = c("none"),
+        choices = setNames(c("none", "age", "macroregion_name", "region_name", "subregion_name"), c("None", "Age", "Macroregion", "Region", "Subregion")),
         multiple = FALSE
       )
     ),
