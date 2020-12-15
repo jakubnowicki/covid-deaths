@@ -64,12 +64,17 @@ function(input, output, session) {
       subregion <- "subregion_name"
     }
 
-    old_value <- input$grouping
+    choices <- c("none", age, macroregion, region, subregion)
+    if (input$grouping %in% choices) {
+      old_value <- input$grouping
+    } else {
+      old_value <- "none"
+    }
 
     update_dropdown_input(
       session,
       input_id = "grouping",
-      choices = c("none", age, macroregion, region, subregion),
+      choices = choices,
       value = old_value
     )
   }, ignoreNULL = FALSE, ignoreInit = TRUE)
