@@ -11,6 +11,10 @@
       {"en": "Area", "pl": "Obszar"},
       {"en": "Poland", "pl": "Polska"},
       {"en": "Age", "pl": "Wiek"},
-      {"en": "All", "pl": "Ogółem"}
+      {"en": "All", "pl": "Ogółem"},
+      {"en": "None", "pl": "Nic"},
+      {"en": "Macroregion", "pl": "Makroregion"},
+      {"en": "Region", "pl": "Region"},
+      {"en": "Subregion", "pl": "Subregion"}
     ]
 }

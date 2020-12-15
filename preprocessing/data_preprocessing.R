@@ -19,8 +19,8 @@ get_area_level <- function(area_code) {
   case_when(
     level == 1 ~ "country",
     level == 2 ~ "macroregion",
-    level == 3 ~ "voivodship",
-    level == 4 ~ "district"
+    level == 3 ~ "region",
+    level == 4 ~ "subregion"
   )
 }
 
@@ -42,9 +42,27 @@ get_data <- function(path, year) {
     ) %>%
     mutate(
       year = year,
-      year_week = paste(year, week, sep = "-")
+      year_week = paste(year, week, sep = "-"),
+      macroregion = substr(area_code, 1, 3),
+      region = substr(area_code, 1, 4),
+      subregion = substr(area_code, 1, 5)
     )
 }
+
+
+get_region <- function(value, level, dictionary) {
+  region <- dictionary %>%
+    filter(area_level == level) %>%
+    filter(area_code == value) %>%
+    pull(area)
+
+  if (length(region) == 0) {
+    return(NA)
+  }
+
+  region
+}
+
 
 ## Data read
 
@@ -58,5 +76,22 @@ for (file in data_files) {
   tmp_df <- get_data(path, year)
   deaths <- rbind(deaths, tmp_df)
 }
+
+areas_df <- deaths %>%
+  select(area, area_code, area_level, macroregion, region, subregion) %>%
+  filter(area_level != "country") %>%
+  distinct()
+
+areas_dict <- areas_df %>%
+  rowwise() %>%
+  mutate(
+    macroregion_name = get_region(macroregion, "macroregion", areas_df),
+    region_name = get_region(region, "region", areas_df),
+    subregion_name = get_region(subregion, "subregion", areas_df)
+  ) %>%
+  select(area_code, macroregion_name, region_name, subregion_name)
+
+deaths <- deaths %>%
+  left_join(areas_dict, by = "area_code")
 
 saveRDS(deaths, file = "./app/src/data/deaths.RDS")
