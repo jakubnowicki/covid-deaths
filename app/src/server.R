@@ -51,17 +51,17 @@ function(input, output, session) {
 
     macroregion <- NULL
     if (!is.null(input$macroregion)) {
-      macroregion <- "macroregion"
+      macroregion <- "macroregion_name"
     }
 
     region <- NULL
     if (!is.null(input$region)) {
-      region <- "region"
+      region <- "region_name"
     }
 
     subregion <- NULL
     if (!is.null(input$subregion)) {
-      subregion <- "subregion"
+      subregion <- "subregion_name"
     }
 
     old_value <- input$grouping

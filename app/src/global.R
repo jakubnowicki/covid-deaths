@@ -15,7 +15,6 @@ macroregion_names <- deaths %>% filter(area_level == "macroregion") %>% pull(are
 ages <- unique(deaths$age)
 years <- unique(deaths$year)
 
-
 areas_df <- deaths %>%
   select(area, area_code, area_level, macroregion, region, subregion) %>%
   filter(area_level != "country") %>%
