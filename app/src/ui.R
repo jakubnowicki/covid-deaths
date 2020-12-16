@@ -10,7 +10,7 @@ semanticPage(
           c("sidebar", "chart")
         ),
         cols_width = c("1fr", "7fr"),
-        rows_height = c("1fr", "7fr")
+        rows_height = c("1fr", "10fr")
       ),
       mobile = list(
         areas = rbind(
@@ -22,55 +22,71 @@ semanticPage(
         cols_width = c("100%")
       )
     ),
-    header = div(),
-    sidebar = shiny.semantic::grid(
-      grid_template = grid_template(
-        default = list(
-          areas = rbind("areas", "years"),
-          cols_width = "100%",
-          rows_height = c("1fr", "1fr")
-        ),
-        mobile = list(
-          areas = rbind("areas", "years"),
-          cols_width = "100%",
-          rows_height = c("3fr", "1fr")
+    header = div(
+      class = "dashboard-header",
+      h1(i18n$t("Number of deaths in Poland")),
+      div(
+        class = "language-input",
+        selectInput(
+          inputId = "selected_language",
+          label = NULL,
+          choices = i18n$get_languages(),
+          selected = i18n$get_key_translation()
         )
-      ),
-      areas = shiny.semantic::grid(
+      )
+    ),
+    sidebar = div(
+      class = "ui raised segment dashboard-sidebar",
+      h3(i18n$t("Filters")),
+      shiny.semantic::grid(
         grid_template = grid_template(
           default = list(
-            areas = cbind("macroregion", "region", "subregion"),
-            cols_width = c("1fr", "1fr", "1fr"),
-            rows_width = "100%"
+            areas = rbind("areas", "years"),
+            cols_width = "100%",
+            rows_height = c("1fr", "1fr")
           ),
           mobile = list(
-            areas = rbind("macroregion", "region", "subregion"),
+            areas = rbind("areas", "years"),
             cols_width = "100%",
-            rows_height = c("1fr", "1fr", "1fr")
+            rows_height = c("3fr", "1fr")
           )
         ),
-        macroregion = shiny.semantic::selectInput(
-          inputId = "macroregion",
-          label = i18n$t("Macroregion"),
-          choices = macroregions,
+        areas = shiny.semantic::grid(
+          grid_template = grid_template(
+            default = list(
+              areas = rbind("macroregion", "region", "subregion"),
+              rows_height = c("1fr", "1fr", "1fr"),
+              cols_width = "100%"
+            ),
+            mobile = list(
+              areas = rbind("macroregion", "region", "subregion"),
+              cols_width = "100%",
+              rows_height = c("1fr", "1fr", "1fr")
+            )
+          ),
+          macroregion = shiny.semantic::selectInput(
+            inputId = "macroregion",
+            label = i18n$t("Macroregion"),
+            choices = macroregions,
+            multiple = TRUE,
+            default_text = i18n$t("All")
+          ),
+          region = uiOutput("region_input"),
+          subregion = uiOutput("subregion_input")
+        ),
+        years = shiny.semantic::selectInput(
+          inputId = "age",
+          label = i18n$t("Age"),
+          choices = ages[ages != "Ogółem"],
           multiple = TRUE,
           default_text = i18n$t("All")
-        ),
-        region = uiOutput("region_input"),
-        subregion = uiOutput("subregion_input")
-      ),
-      years = shiny.semantic::selectInput(
-        inputId = "age",
-        label = i18n$t("Age"),
-        choices = ages[ages != "Ogółem"],
-        multiple = TRUE,
-        default_text = i18n$t("All")
+        )
       )
     ),
     chart = tabset(
       tabs = list(
         list(
-          menu = "Deaths in time",
+          menu = i18n$t("Deaths in time"),
           content = div(
             div(
               class = "ui raised segment",
@@ -94,7 +110,7 @@ semanticPage(
           )
         ),
         list(
-          menu = "Comparison by year",
+          menu = i18n$t("Comparison by year"),
           content = div(
             div(
               class = "ui raised segment",
