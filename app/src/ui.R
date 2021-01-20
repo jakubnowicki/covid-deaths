@@ -57,7 +57,7 @@ semanticPage(
         label = i18n$t("Years to compare"),
         choices = years,
         multiple = TRUE,
-        selected = tail(sort(years), 2)
+        selected = tail(sort(years), 3)
       )
     ),
     controls = div(
