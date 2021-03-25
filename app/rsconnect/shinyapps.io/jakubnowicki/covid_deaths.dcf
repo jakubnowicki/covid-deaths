@@ -1,0 +1,12 @@
+name: covid_deaths
+title: covid_deaths
+username:
+account: jakubnowicki
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3374485
+bundleId: 4266957
+url: https://jakubnowicki.shinyapps.io/covid_deaths/
+when: 1614181745.0592
+asMultiple: FALSE
+asStatic: FALSE
