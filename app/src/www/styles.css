@@ -1,23 +1,30 @@
 @media screen and (min-width: 600px) {
-  .ui.raised.segment {
-    min-height: calc(100% - 20px);
-  }
-
-  .field {
-    margin: 0 5px !important;
-  }
+    .ui.raised.segment {
+        min-height: calc(100% - 20px);
+    }
+    .field {
+        margin: 0 5px !important;
+    }
 }
 
 .ui.raised.segment {
-  margin: 10px;
+    margin: 10px;
 }
 
 .language-input {
-  position: absolute;
-  top: 0;
-  right: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .language-input .field {
-  margin: 0 !important;
+    margin: 0 !important;
+}
+
+.info-box {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(236, 236, 236, 0.774);
+    padding: 5px;
 }

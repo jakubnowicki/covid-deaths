@@ -296,13 +296,6 @@
       "Repository": "CRAN",
       "Hash": "4d243a9c10b00589889fe32314ffd902"
     },
-    "git2r": {
-      "Package": "git2r",
-      "Version": "0.28.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "f64fd34026f6025de71a4354800e6d79"
-    },
     "glue": {
       "Package": "glue",
       "Version": "1.4.2",
@@ -645,13 +638,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "3a90f99b8b5c2e9d2d17e841ba98c83f"
-    },
-    "shiny.info": {
-      "Package": "shiny.info",
-      "Version": "0.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "4e4c89eee16316032d34a3a821fdea69"
     },
     "shiny.semantic": {
       "Package": "shiny.semantic",
