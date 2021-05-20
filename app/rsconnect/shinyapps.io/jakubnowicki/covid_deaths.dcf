@@ -5,9 +5,9 @@ account: jakubnowicki
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3374485
-bundleId: 4621348
+bundleId: 4621457
 url: https://jakubnowicki.shinyapps.io/covid_deaths/
-when: 1621535640.43943
-lastSyncTime: 1621535640.43947
+when: 1621537926.17885
+lastSyncTime: 1621537926.1789
 asMultiple: FALSE
 asStatic: FALSE
